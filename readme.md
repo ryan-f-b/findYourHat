@@ -203,7 +203,8 @@ Try:
 🧑‍💻 Author
 ------------
 
-Ryan/
+Ryan  
+
 GitHub: <https://github.com/ryan-f-b/findYourHat>
 
 * * * * *
