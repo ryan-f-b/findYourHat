@@ -1,5 +1,6 @@
 const prompt = require('prompt-sync')({sigint: true});
 
+// Assigning variables for characters used in the game
 const hat = '^';
 const hole = 'O';
 const fieldCharacter = '░';
@@ -13,6 +14,7 @@ class Field {
     this.direction = null;
   }
 
+  // When called, this method clears the console and then prints the current grid
   print() {
     process.stdout.write('\x1Bc');
     for (let row of this.field) {
@@ -20,6 +22,7 @@ class Field {
     } 
   }
 
+  // Method to handle moving the pathCharacter
   move() {
     switch (this.direction.toUpperCase()) {
       case 'R':
@@ -101,6 +104,7 @@ class Field {
     }
   }
 
+  // Method called at the start of the game and after each move
   playGame(errMessage) {
     this.print();
     if (errMessage) {
@@ -111,20 +115,33 @@ class Field {
     this.move();
   }
 
+  // Static method used to generate a field based on the inputted parameters, including a percentage which determines what % of the grid is holes
   static generateField(height, width, percentage) {
     let field = [];
+
+    // Creating a new array for each row
     for (let i = 0; i < height; i++) {
       field.push([]);
+
+
       for (let j = 0; j < width; j++) {
+        
+        // Ensuring the top left of the grid is assigned as the path character
         if (i === 0 && j === 0) {
           field[i].push(pathCharacter);
+
+        // Randomly assigning holes based on the percentage parameter
         } else if (Math.floor(Math.random() * 100) < percentage) {
           field[i].push(hole);
+
+        // Filling the remaining grid areas with fieldCharacters
         } else {
           field[i].push(fieldCharacter);
         }
       }
     }
+
+    // Randomly assigning one area of the grid as the hat
     let rand1 = Math.floor(Math.random() * height);
     let rand2 = Math.floor(Math.random() * width);
     if (rand1 !== 0 || rand2 !== 0) {
